@@ -1,0 +1,16 @@
+language: node_js
+
+node_js: 
+  - 11.6.0
+
+cache: npm
+
+install: 
+  - npm install
+
+script: 
+  - docker pull leonardorsilveira/nginx-atp02:latest
+  - docker run -p 8085:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+
+after_script:
+  - bash ./telegram_notification.sh
